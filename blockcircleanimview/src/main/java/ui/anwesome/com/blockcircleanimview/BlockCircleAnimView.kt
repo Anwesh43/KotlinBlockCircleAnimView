@@ -85,19 +85,19 @@ class BlockCircleAnimView (ctx : Context) : View(ctx) {
         fun draw (canvas : Canvas, paint : Paint) {
             val w : Float = canvas.width.toFloat()
             val h : Float = canvas.height.toFloat()
-            val sizeH : Float = w/6
+            val sizeH : Float = w/12
             val r : Float = Math.min(w, h)/20
             canvas.save()
             canvas.translate(w/2, h/2)
             for (i in 0..1) {
                 canvas.save()
                 canvas.translate(0f, sizeH * state.scales[0] * (1 - 2 * i))
-                canvas.drawRect(-sizeH, -sizeH, sizeH, sizeH, paint)
+                canvas.drawRect(-1.5f * sizeH, -sizeH, 1.5f * sizeH, sizeH, paint)
                 canvas.restore()
             }
             for (i in 0..1) {
                 canvas.save()
-                canvas.translate(-sizeH * state.scales[2] * (1 - 2 * i), sizeH + r)
+                canvas.translate(-sizeH * state.scales[2] * (1 - 2 * i), sizeH + 2.5f * r)
                 canvas.drawCircle(0f, 0f, r * state.scales[1], paint)
                 canvas.restore()
             }
