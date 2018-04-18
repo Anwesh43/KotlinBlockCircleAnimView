@@ -109,4 +109,26 @@ class BlockCircleAnimView (ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class Renderer (var view : BlockCircleAnimView) {
+        private val blockAnimCircle : BlockAnimCircle = BlockAnimCircle(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            paint.color = Color.parseColor("#2980b9")
+            blockAnimCircle.draw(canvas, paint)
+            animator.animate {
+                blockAnimCircle.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            blockAnimCircle.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
