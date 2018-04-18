@@ -4,6 +4,7 @@ package ui.anwesome.com.blockcircleanimview
  * Created by anweshmishra on 18/04/18.
  */
 
+import android.app.Activity
 import android.content.*
 import android.graphics.*
 import android.view.*
@@ -131,6 +132,14 @@ class BlockCircleAnimView (ctx : Context) : View(ctx) {
             blockAnimCircle.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : BlockCircleAnimView {
+            val view : BlockCircleAnimView = BlockCircleAnimView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
