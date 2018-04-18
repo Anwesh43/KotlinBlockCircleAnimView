@@ -77,4 +77,36 @@ class BlockCircleAnimView (ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class BlockAnimCircle (var i : Int , private val state : State = State()) {
+        fun draw (canvas : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val sizeH : Float = w/6
+            val r : Float = Math.min(w, h)/20
+            canvas.save()
+            canvas.translate(w/2, h/2)
+            for (i in 0..1) {
+                canvas.save()
+                canvas.translate(0f, sizeH * state.scales[0] * (1 - 2 * i))
+                canvas.drawRect(-sizeH, -sizeH, sizeH, sizeH, paint)
+                canvas.restore()
+            }
+            for (i in 0..1) {
+                canvas.save()
+                canvas.translate(-sizeH * state.scales[2] * (1 - 2 * i), sizeH + r)
+                canvas.drawCircle(0f, 0f, r * state.scales[1], paint)
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
